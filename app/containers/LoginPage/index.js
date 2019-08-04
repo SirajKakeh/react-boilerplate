@@ -5,10 +5,8 @@
  */
 
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -17,26 +15,46 @@ import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectLoginPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+
+// Components
+import Button from '../../components/Button';
+import H2 from '../../components/H2';
+import A from '../../components/A';
+import Input from '../../components/Input/Loadable';
 
 export function LoginPage() {
   useInjectReducer({ key: 'loginPage', reducer });
   useInjectSaga({ key: 'loginPage', saga });
 
   return (
-    <div>
+    <div className="login-page">
       <Helmet>
         <title>LoginPage</title>
         <meta name="description" content="Description of LoginPage" />
       </Helmet>
-      <FormattedMessage {...messages.header} />
+      <div className="content">
+        <img src="" alt="" />
+        <form name="login-form">
+          <section className="form-header">
+            <H2 className="header-message">Welcome to WINFOOZ</H2>
+            <div className="header-message">
+              <span>No Account?</span>
+              &nbsp;
+              <A href="/">Register</A>
+            </div>
+          </section>
+          <section className="form-body">
+            <label htmlFor="email">Email</label>
+            <Input name="email" type="email" />
+            <label htmlFor="password">Password</label>
+            <Input name="password" type="password" />
+            <Button handleRoute>IGNITION</Button>
+          </section>
+        </form>
+      </div>
     </div>
   );
 }
-
-LoginPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = createStructuredSelector({
   loginPage: makeSelectLoginPage(),

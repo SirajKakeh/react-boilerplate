@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  width: 100%;
+  @media (max-width: 700px) {
+    width: 90vw;
+  }
+  width: 70%;
   text-align: center;
-  margin: 2em 0;
+  margin: 1em 0;
 `;
 
 export default Wrapper;
